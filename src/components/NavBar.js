@@ -5,7 +5,7 @@ import {Navbar, Nav } from 'react-bootstrap'
 export default function NavBar() {
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
                 <Navbar.Brand as={Link} to="/">Namespace-Job</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
