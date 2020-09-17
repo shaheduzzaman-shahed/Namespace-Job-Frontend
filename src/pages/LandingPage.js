@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {connect} from 'react-redux'
 import {fetchPosts} from '../store/actions/postAction'
-import {Card, Button} from 'react-bootstrap'
+import {Card, Button, Spinner} from 'react-bootstrap'
 import moment from 'moment'
 import { Redirect } from 'react-router-dom'
 
@@ -19,11 +19,14 @@ function LandingPage(props) {
 
         }
     }
-
     return (
         <div className="col-md-8 m-auto">
         {loginState ? <Redirect push to="/login" /> : null}
-        {props.posts.map((post) => (
+        { props.loading ? (
+            <h3 className="text-center mt-5">loading... <Spinner animation="grow" variant="primary" /></h3>
+        )
+        :
+        props.posts.map((post) => (
             <Card className="mb-4" key={post.id}>
                 <Card.Header className="">
                 <h5>{post.title}</h5>
@@ -51,7 +54,8 @@ function LandingPage(props) {
                 <span  className="float-right">posted: {moment(post.created_at, "YYYYMMDD").fromNow()} </span>
                 </Card.Footer>
             </Card>
-        ))}
+        ))
+        }
         </div>
     )
 }
@@ -59,6 +63,7 @@ function LandingPage(props) {
 const mapstateToProps = (state) => {
     return {
         posts: state.post.items,
+        loading: state.post.loading,
         auth: state.auth,
     }
 }

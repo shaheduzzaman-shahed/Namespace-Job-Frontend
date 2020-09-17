@@ -17,7 +17,7 @@ const initState = {
           loading: false,
           error:null
         };
-        localStorage.setItem("auth", JSON.stringify(nstate));
+        localStorage.setItem("token", action.payload.token);
         return nstate;
       case "AUTH_LOADING":
         return {
@@ -26,7 +26,7 @@ const initState = {
         }
   
       case "LOGOUT_SUCCESS":
-        localStorage.removeItem("auth")
+        localStorage.removeItem("token")
         return {
           ...state,
           token: null,
