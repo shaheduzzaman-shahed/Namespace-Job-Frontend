@@ -54,14 +54,16 @@ function EditProfile(props) {
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control type="Text" placeholder="enter your last name" onChange={handleChange} value={state.last_name}/>
                 </Form.Group>
-                  <Form.Group>
+                <Form.Group>
                         <Form.File 
                           id="image"
                           label="upload profile image"
                           custom
                           onChange={imageHandler}
                         />
-                   </Form.Group>
+                </Form.Group>
+                {state.is_company == 0 ?
+                <div>
                    <Form.Group>
                         <Form.File 
                           id="resume"
@@ -70,8 +72,6 @@ function EditProfile(props) {
                           onChange={imageHandler}
                         />
                     </Form.Group>
-                {state.is_company == 0 ?
-                <div>
                 <Form.Group controlId="skills">
                     <Form.Label>Your Skills</Form.Label>
                     <Form.Control as="textarea" rows={3} value={state.skills} onChange={handleChange}/>

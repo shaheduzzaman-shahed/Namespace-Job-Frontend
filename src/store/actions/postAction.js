@@ -18,20 +18,20 @@ export const fetchPosts = () =>{
     }
 }
 
-export const addCoupon = (data, token) => {
+export const addPost = (data, token) => {
     return (dispatch) => {
-        dispatch({type: 'COUPON_LOADING'})
-        axios.post(`coupon`, data, {
+        dispatch({type: 'POST_LOADING'})
+        axios.post(`post`, data, {
             headers: {
                 'Content-Type': 'application/json',
                 "Accept": "application/json",
                 'Authorization': 'Bearer ' + token
             }
         }).then((res) => {
-            dispatch({type:'ADD_COUPON_SUCCESS', payload: {data: res.data.result}})
+            dispatch({type:'ADD_POST_SUCCESS', payload: {data: res.data}})
         }).catch((err) => {
             console.log("bal ", err.response.data)
-            dispatch({type:'ADD_COUPON_ERROR', payload: {error: err.response.data}})
+            dispatch({type:'ADD_POST_ERROR', payload: {error: err.response.data}})
         })
     }
 }

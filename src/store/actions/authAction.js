@@ -32,10 +32,10 @@ export const signup = (newUser) => {
         })
     }
 }
-export const getUser = (token) => (dispatch) => {
+export const getUser = (token) => async (dispatch) => {
     // console.log(res)
     dispatch({type: 'AUTH_LOADING'})
-    axios.get(`user`, {
+    await axios.get(`user`, {
         headers: {
             'Content-Type': 'application/json',
             "Accept": "application/json",

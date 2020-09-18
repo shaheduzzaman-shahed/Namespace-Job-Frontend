@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, } from 'react-router-dom'
 import { Spinner, Alert, Card, Image, Button, Table } from 'react-bootstrap'
-import { fetchApplications } from '../../store/actions/applicationAction'
-import avatar from '../../assets/user.jpg'
+import { fetchPosts } from '../../store/actions/postAction'
+import AddPost from '../../components/company/AddPost'
 
-function CompanyHome(props) {
+function AllPost(props) {
     const [edit, editState] = useState(false)
-    const { error, auth, loading, applications } = props;
+    const { error, auth, loading, posts, success } = props;
     const profile = auth.profile
     // console.log(auth)
     useEffect(() => {
-        props.fetchApplications(props.token)
+        if(posts.length < 1){
+            props.fetchPosts(props.token)
+        }
     }, [])
     if (auth.isLoggedIn) {
         if (!auth.profile.is_company) {
@@ -25,40 +27,41 @@ function CompanyHome(props) {
 
 
             <div className="col-md-10 m-auto">
+                {success ? <Alert variant="success">Success : {success}</Alert> : null}
                 {error ? <Alert variant="danger">Error : {error.message}</Alert> : null}
                 {error && error.errors ? <Alert variant="danger"> {Object.values(error.errors)}</Alert> : null}
                 <Card border="success" className="mt-2">
-                    <Card.Header as="h4">All Job Applications
-                    <h5 className="float-right">{profile.first_name} {profile.last_name}</h5>
+                    <Card.Header as="h4">All Job Post
+                    <Button className="float-right" onClick={()=>editState(true)}>Post New Job</Button>
                     </Card.Header>
                     <Card.Body>
-                        <Table striped bordered hover size='sm'>
+                    <h5 className="text-center mb-2 text-primary">Posted by {profile.first_name} {profile.last_name}</h5>
+                        <Table striped bordered hover size='md'>
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Post Name</th>
-                                    <th>Applicant Name</th>
-                                    <th>Email</th>
-                                    <th>Skills</th>
-                                    <th>Resume</th>
+                                    <th>Post Title</th>
+                                    <th>Description</th>
+                                    <th>Salary</th>
+                                    <th>Location</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {applications.map((app, index) => (
+                                {posts.map((post, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{app.post.title}</td>
-                            
-                                        <td>{app.applicant.first_name} {app.applicant.last_name}</td>
-                                        <td>{app.applicant.email}</td>
-                                        <td>{app.applicant.skills}</td>
-                                        <td>
-                                        <a href={app.applicant.resume} target="_blank" className="btn btn-primary">View Resume</a>
-                                        </td>
+                                        <td>{post.title}</td>
+                                        <td>{post.description}</td>
+                                        <td>{post.salary}</td>
+                                        <td>{post.location}, {post.country}</td>
+                                    
                                     </tr>
                                 ))}
                             </tbody>
                         </Table>
+                        {edit ? 
+                            <AddPost show={edit} onHide={() => editState(false)}/>
+                        : null }
                     </Card.Body>
                 </Card>
             </div>
@@ -70,14 +73,15 @@ const mapStateToProps = (state) => {
     return {
         auth: state.auth,
         token: state.auth.token,
-        loading: state.application.loading,
-        error: state.application.error,
-        applications: state.application.items
+        loading: state.post.loading,
+        error: state.post.error,
+        success: state.post.success,
+        posts: state.post.items
     };
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchApplications: (token) => dispatch(fetchApplications(token)),
+        fetchPosts: () => dispatch(fetchPosts()),
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(CompanyHome)
+export default connect(mapStateToProps, mapDispatchToProps)(AllPost)

@@ -20,16 +20,16 @@ const initState = {
           error: action.payload.error,
           loading: false,
         };
-      case "ADD_COUPON_SUCCESS":
+      case "ADD_POST_SUCCESS":
         return {
           ...state,
           items: [action.payload.data,...state.items],
           error: null,
           loading: false,
-          success: action.payload.data.message,
+          success: "Post Added Successfully",
 
         };
-      case "ADD_COUPON_ERROR":
+      case "ADD_POST_ERROR":
         return {
           ...state,
           error: action.payload.error,

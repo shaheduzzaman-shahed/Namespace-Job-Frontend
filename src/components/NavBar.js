@@ -16,14 +16,17 @@ function NavBar(props) {
     }
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
+            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" sticky="top">
                 <Navbar.Brand as={Link} to="/">Namespace-Job</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 {auth.isLoggedIn ? 
                     <Nav className="ml-auto">
                        {auth.profile.is_company ? 
+                       <Nav>
                         <Nav.Link as={Link} to="/companyHome">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/allPost">Posts</Nav.Link>
+                        </Nav>
                        : <Nav.Link as={Link} to="/userHome">Home</Nav.Link>
                        }
                         <NavDropdown title={auth.profile.first_name} id="basic-nav-dropdown">
