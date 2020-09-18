@@ -24,7 +24,11 @@ function Login(props) {
     const { loginError, auth, loading } = props;
     // console.log(loginError)
     if (auth.isLoggedIn) {
-        return <Redirect to="/userHome" />
+        if(auth.profile.is_company){
+            return <Redirect to="/companyHome" />
+        }else{
+            return <Redirect to="/" />
+        }
     }
 
 
@@ -34,7 +38,7 @@ function Login(props) {
             <div className="text-center mt-2">
                 {loginError ? <Alert variant="danger">Error : {loginError}</Alert> : null}
             </div>
-            <Form className="mt-2 p-3" onSubmit={handleSubmit}>
+            <Form className="p-2" onSubmit={handleSubmit}>
                 <h2 className="text-center">SignIn</h2><hr/>
 
                 <Form.Group controlId="username">

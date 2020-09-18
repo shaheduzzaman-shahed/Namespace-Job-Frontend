@@ -69,4 +69,21 @@ export const deleteCoupon = (id, token) => {
         })
     }
 }
+export const applyJob = (id, token) => {
+    return (dispatch) => {
+        dispatch({type: 'POST_LOADING'})
+        axios.get(`applyJob/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json",
+                'Authorization': 'Bearer ' + token
+            }
+        }).then((res) => {
+            dispatch(fetchPosts())
+        }).catch((err) => {
+            console.log("bal ", err.response.data)
+            dispatch({type:'APPLY_JOB_ERROR', payload: {error: err.response.data}})
+        })
+    }
+}
 

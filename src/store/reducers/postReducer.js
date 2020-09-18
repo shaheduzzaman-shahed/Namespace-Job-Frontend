@@ -68,6 +68,11 @@ const initState = {
           loading: false,
           success: null,
         };
+      case "APPLY_JOB_SUCCESS":
+        return {
+          ...state,
+          loading: false,
+        };
       case "POST_LOADING":
         return {
           ...state,

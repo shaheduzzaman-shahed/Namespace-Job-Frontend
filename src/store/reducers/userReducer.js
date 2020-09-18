@@ -19,20 +19,6 @@ const initState = {
         };
         localStorage.setItem("token", action.payload.token);
         return nstate;
-      case "UPDATE_PROFILE_SUCCESS":
-        return {
-          ...state,
-          profile: action.payload.data,
-          loading: false,
-          error:null
-        };
-      case "UPDATE_PROFILE_ERROR":
-        return {
-          ...state,
-          loading: false,
-          error:action.payload.error
-        };
-       
       case "AUTH_LOADING":
         return {
           ...state,

@@ -3,7 +3,11 @@ import thunk from "redux-thunk";
 import rootReducers from "./reducers";
 
 const initState = {
-  auth: {token: localStorage.getItem('token')}
+  auth: {
+    token: localStorage.getItem('token'),
+    profile: {},
+    loading: false
+  }
 }
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

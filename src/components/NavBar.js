@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import {Navbar, Nav, Spinner } from 'react-bootstrap'
+import {Navbar, Nav, Spinner, NavDropdown } from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {getUser, signout} from '../store/actions/authAction'
 
@@ -22,10 +22,18 @@ function NavBar(props) {
                 <Navbar.Collapse id="responsive-navbar-nav">
                 {auth.isLoggedIn ? 
                     <Nav className="ml-auto">
-                        <Nav.Link as={Link} to="/userHome">Home</Nav.Link>
-                        <Nav.Link onClick={handleLogOut}>
-                        SignOut  {auth.loading ? <Spinner animation="border" variant="" size='sm' /> : null }
-                        </Nav.Link>                                 
+                       {auth.profile.is_company ? 
+                        <Nav.Link as={Link} to="/companyHome">Home</Nav.Link>
+                       : <Nav.Link as={Link} to="/userHome">Home</Nav.Link>
+                       }
+                        <NavDropdown title={auth.profile.first_name} id="basic-nav-dropdown">
+                            <NavDropdown.Item onClick={handleLogOut}>
+                            SignOut 
+                            </NavDropdown.Item>  
+                        </NavDropdown>
+                        <Nav.Link>
+                        {auth.loading ? <Spinner animation="border" variant="primary" size='sm' /> : null }
+                        </Nav.Link>
                     </Nav>
                 :
                     <Nav className="ml-auto">

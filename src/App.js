@@ -5,6 +5,7 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import LandingPage from './pages/LandingPage'
 import UserHome from './pages/user/UserHome'
+import CompanyHome from './pages/company/CompanyHome'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/userHome" component={UserHome} />
+          <Route path="/companyHome" component={CompanyHome} />
           <Route path="*">
             <h1 className="text-center mt-5"><b>404 Page not found</b></h1>
           </Route>
