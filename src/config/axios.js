@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL : 'http://namespace-job.test/api'
+    baseURL : 'https://jobsforjob.raintreeit.com/api'
 })
