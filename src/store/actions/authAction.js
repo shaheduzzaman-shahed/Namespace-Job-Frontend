@@ -18,31 +18,35 @@ export const signin = (credentials) => {
 }
 export const signup = (newUser) => {
     return (dispatch) => {
+        dispatch({type: 'AUTH_LOADING'})
         axios.post(`register`, newUser, {
             headers: {
                 'Content-Type': 'application/json',
                 "Accept": "application/json"
             }
         }).then((res) => {
-            console.log(res)
-            dispatch(getUser (res.data.access_token))
+            if(res.data){
+                dispatch(getUser (res.data.access_token))
+            }else{
+            dispatch({ type: 'SIGNUP_ERROR', payload: {error: {message: "Something went wrong. can not login!"}} });
+            }
         }).catch((err) => {
             console.log("bal ", err.response.data)
             dispatch({ type: 'SIGNUP_ERROR', payload: {error: err.response.data} });
         })
     }
 }
-export const getUser = (token) => async (dispatch) => {
+export const getUser = (token) => (dispatch) => {
     // console.log(res)
     dispatch({type: 'AUTH_LOADING'})
-    await axios.get(`user`, {
+    axios.get(`user`, {
         headers: {
             'Content-Type': 'application/json',
             "Accept": "application/json",
             'Authorization': 'Bearer ' + token,
         }
     }).then((data) => {
-        console.log(data)
+        // console.log(data)
         let profile = data.data
         dispatch({ type: "SIGNIN_SUCCESS", payload: { token, profile } });
     }).catch((err) => {
@@ -63,7 +67,7 @@ export const signout = (token) => (dispatch) => {
             // if(res.success){
             //     localStorage.removeItem("auth")
             // }
-            console.log(res)
+            // console.log(res)
             dispatch({ type: 'LOGOUT_SUCCESS' });
         })
         .catch((err) => {

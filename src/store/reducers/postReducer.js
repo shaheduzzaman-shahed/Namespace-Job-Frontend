@@ -13,12 +13,14 @@ const initState = {
           items: action.payload.data,
           error: null,
           loading: false,
+          success: null
         };
-    case "FETCH_COUPONS_ERROR":
+    case "FETCH_POSTS_ERROR":
         return {
           ...state,
           error: action.payload.error,
           loading: false,
+          success:''
         };
       case "ADD_POST_SUCCESS":
         return {
@@ -37,31 +39,17 @@ const initState = {
           success: null,
 
         };
-      case "UPDATE_COUPON_SUCCESS":
-        let c_id = state.items.findIndex(item => item.id == action.payload.data.id)
-        state.items.splice(c_id,1,action.payload.data)
-        return {
-          ...state,
-          error: null,
-          loading: false,
-          success: 'Coupon updated successfully!'
-        };
-      case "UPDATE_CATEGORY_ERROR":
-        return {
-          ...state,
-          error: action.payload.error,
-          loading: false,
-        };
-      case "DELETE_COUPON_SUCCESS":
+     
+      case "DELETE_POST_SUCCESS":
         let d_id = state.items.findIndex(item => item.id == action.payload.data.id)
         state.items.splice(d_id,1)
         return {
           ...state,
           error: null,
           loading: false,
-          success: action.payload.data.message
+          success: "post deleted successfully"
         };
-      case "DELETE_COUPON_ERROR":
+      case "DELETE_POST_ERROR":
         return {
           ...state,
           error: action.payload.error,

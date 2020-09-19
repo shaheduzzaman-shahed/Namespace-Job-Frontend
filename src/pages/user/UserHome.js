@@ -14,6 +14,8 @@ function UserHome(props) {
         if (auth.profile.is_company) {
             return <Redirect to="/companyHome" />
         }
+    }else{
+        return <Redirect to="/" />
     }
     if (loading) {
         return (<h3 className="text-center mt-5">loading... <Spinner animation="grow" variant="primary" /></h3>)
@@ -22,6 +24,9 @@ function UserHome(props) {
 
 
             <div className="col-md-6 m-auto">
+                {props.location.state ? 
+                    <Alert variant="danger">  {props.location.state.resumeWarning} <a href="#" onClick={()=>editState(true)}>Upload Now</a></Alert>
+                : null }
                 {error ? <Alert variant="danger">Error : {error.message}</Alert> : null}
                 {error && error.errors ?<Alert variant="danger"> {Object.values(error.errors)}</Alert> : null}
                 <Card border="success" className="mt-2">
@@ -42,8 +47,6 @@ function UserHome(props) {
                     :
                     <Alert variant="danger">You Didn't Upload Your Resume Yet! please <a href="#" onClick={()=>editState(true)}>Upload</a></Alert>
                     }
-                        {/* <Card.Title>Skills</Card.Title>
-                        <Card.Text> {profile.skills} </Card.Text> */}
                     </Card.Body>
                 </Card>
                 {edit ? 

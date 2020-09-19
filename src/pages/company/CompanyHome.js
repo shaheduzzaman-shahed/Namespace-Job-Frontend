@@ -17,6 +17,8 @@ function CompanyHome(props) {
         if (!auth.profile.is_company) {
             return <Redirect to="/userHome" />
         }
+    }else{
+        return <Redirect to="/" />
     }
     if (loading) {
         return (<h3 className="text-center mt-5">loading... <Spinner animation="grow" variant="primary" /></h3>)
@@ -32,6 +34,7 @@ function CompanyHome(props) {
                     <h5 className="float-right">{profile.first_name} {profile.last_name}</h5>
                     </Card.Header>
                     <Card.Body>
+                    {applications.length > 0 ? 
                         <Table striped bordered hover size='sm'>
                             <thead>
                                 <tr>
@@ -59,6 +62,8 @@ function CompanyHome(props) {
                                 ))}
                             </tbody>
                         </Table>
+                        : <div className="text-center mt-5"><h2>No Job Application Yet! </h2></div>
+                    }
                     </Card.Body>
                 </Card>
             </div>

@@ -19,18 +19,22 @@ function LandingPage(props) {
         }else if(auth.isLoggedIn && auth.profile.resume){
             props.applyJob(post_id,auth.token)
         }else{
-            console.log('bal')
             setProfileState(true)
         }
     }
     return (
         <div className="col-md-8 m-auto">
         {loginState ? <Redirect push to="/login" /> : null}
-        {profileState ? <Redirect push to="/userHome" /> : null}
+        {profileState ? <Redirect push to={{
+            pathname: "/userHome",
+            state: { resumeWarning: "You can not apply without uploading your Resume!" }
+          }} /> : null}
+
         { props.loading ? (
             <h3 className="text-center mt-5">loading... <Spinner animation="grow" variant="primary" /></h3>
         )
         :
+        props.posts.length > 0 ?
         props.posts.map((post) => (
             <Card className="mb-4" key={post.id}>
                 <Card.Header className="">
@@ -59,7 +63,8 @@ function LandingPage(props) {
                 <span  className="float-right">posted: {moment(post.created_at, "YYYYMMDD").fromNow()} </span>
                 </Card.Footer>
             </Card>
-        ))
+        )) : 
+        <div className="text-center mt-5"><h1>No Job Post Yet! </h1></div>
         }
         </div>
     )

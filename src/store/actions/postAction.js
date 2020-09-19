@@ -35,37 +35,21 @@ export const addPost = (data, token) => {
         })
     }
 }
-export const editCoupon = (data, token) => {
+
+export const deletePost = (id, token) => {
     return (dispatch) => {
-        dispatch({type: 'COUPON_LOADING'})
-        axios.put(`coupon/${data.id}`, data, {
+        dispatch({type: 'POST_LOADING'})
+        axios.delete(`post/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 "Accept": "application/json",
                 'Authorization': 'Bearer ' + token
             }
         }).then((res) => {
-            dispatch({type:'UPDATE_COUPON_SUCCESS', payload: {data: res.data.result}})
+            dispatch({type:'DELETE_POST_SUCCESS', payload: {data: res.data}})
         }).catch((err) => {
             console.log("bal ", err.response.data)
-            dispatch({type:'UPDATE_COUPON_ERROR', payload: {error: err.response.data}})
-        })
-    }
-}
-export const deleteCoupon = (id, token) => {
-    return (dispatch) => {
-        dispatch({type: 'COUPON_LOADING'})
-        axios.delete(`coupon/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                "Accept": "application/json",
-                'Authorization': 'Bearer ' + token
-            }
-        }).then((res) => {
-            dispatch({type:'DELETE_COUPON_SUCCESS', payload: {data: res.data.result}})
-        }).catch((err) => {
-            console.log("bal ", err.response.data)
-            dispatch({type:'DELETE_COUPON_ERROR', payload: {error: err.response.data}})
+            dispatch({type:'DELETE_POST_ERROR', payload: {error: err.response.data}})
         })
     }
 }

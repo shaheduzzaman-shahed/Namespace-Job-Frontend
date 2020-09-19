@@ -36,18 +36,18 @@ function Login(props) {
     return (
         <div className="col-md-6 m-auto border">
             <div className="text-center mt-2">
-                {loginError ? <Alert variant="danger">Error : {loginError}</Alert> : null}
+                {loginError ? <Alert variant="danger">Error : {loginError.message}</Alert> : null}
             </div>
             <Form className="p-2" onSubmit={handleSubmit}>
                 <h2 className="text-center">SignUP</h2><hr/>
 
                 <Form.Group controlId="first_name">
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control type="Text" placeholder="enter your first name" onChange={handleChange} />
+                    <Form.Control type="Text" placeholder="enter your first name" required onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="last_name">
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="Text" placeholder="enter your last name" onChange={handleChange} />
+                    <Form.Control type="Text" placeholder="enter your last name" required onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="is_company">
                     <Form.Label>Select a Role for Registration</Form.Label>
@@ -56,6 +56,7 @@ function Login(props) {
                       defaultValue={null}
                       name="feature"
                       onChange={handleChange}
+                      required
                     >
                       <option>Choose...</option>
                       <option value={0}>As User</option>
@@ -67,11 +68,11 @@ function Login(props) {
                 <div>
                 <Form.Group controlId="business_name">
                     <Form.Label>Business Name</Form.Label>
-                    <Form.Control type="Text" placeholder="enter your business name" onChange={handleChange} />
+                    <Form.Control type="Text" placeholder="enter your business name" required onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="email">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" onChange={handleChange} />
+                    <Form.Control type="email" placeholder="Enter email" required onChange={handleChange} />
                     <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                     </Form.Text>
@@ -79,7 +80,7 @@ function Login(props) {
 
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={handleChange} />
+                    <Form.Control type="password" placeholder="Password" required onChange={handleChange} />
                 </Form.Group>
                 </div>
                 : null
@@ -88,7 +89,7 @@ function Login(props) {
                 <div>
                 <Form.Group controlId="email">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" onChange={handleChange} />
+                    <Form.Control type="email" placeholder="Enter email" required onChange={handleChange} />
                     <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                     </Form.Text>
@@ -96,7 +97,7 @@ function Login(props) {
 
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={handleChange} />
+                    <Form.Control type="password" placeholder="Password" required onChange={handleChange} />
                 </Form.Group>
                 </div>     
                 : null   

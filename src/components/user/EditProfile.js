@@ -28,7 +28,7 @@ function EditProfile(props) {
       }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state)
+        // console.log(state)
         props.onHide()
         props.updateProfile(state, props.token);
     }

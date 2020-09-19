@@ -16,7 +16,7 @@ function NavBar(props) {
     }
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="secondary" variant="dark" sticky="top">
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
                 <Navbar.Brand as={Link} to="/">Namespace-Job</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
