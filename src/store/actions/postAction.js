@@ -12,8 +12,8 @@ export const fetchPosts = () =>{
             console.log(res.data)
             dispatch({type:'FETCH_POSTS_SUCCESS', payload: {data: res.data}})
         }).catch((err) => {
-            console.log("err ", err.response.data)
-            dispatch({ type: 'FETCH_POSTS_ERROR', payload: {error: err.response.data} });
+            console.log("err ", err.response)
+            dispatch({ type: 'FETCH_POSTS_ERROR', payload: {error: err.response} });
         })
     }
 }
